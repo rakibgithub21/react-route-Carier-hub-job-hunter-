@@ -17,4 +17,10 @@ const saveJobApplication = id => {
 
 }
 
-export {saveJobApplication,getStoredJobApplication}
+const deleteJobApplications = id => {
+    const storedApplication = getStoredJobApplication();
+    const remaining = storedApplication.filter(jobId => jobId != id);
+    localStorage.setItem('job-applications', JSON.stringify(remaining));
+}
+
+export { saveJobApplication, getStoredJobApplication, deleteJobApplications }

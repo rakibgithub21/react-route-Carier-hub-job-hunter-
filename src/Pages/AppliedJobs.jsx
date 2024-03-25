@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
-import { getStoredJobApplication } from "../utilities";
+import { useLoaderData, useNavigation, useParams } from "react-router-dom";
+import { deleteJobApplications, getStoredJobApplication } from "../utilities";
 import Applied from "./Applied";
+import NoData from "./NoData";
+
 
 
 const AppliedJobs = () => {
+
+    const navigation = useNavigation();
+    console.log(navigation.state);
+
     const jobs = useLoaderData();
     const [appliedJobs, setAppliedJobs] = useState([]);
     const [displayJob, setDisplayJob] = useState([]);
+
+    
 
 
     useEffect(() => {
@@ -22,7 +30,17 @@ const AppliedJobs = () => {
             setDisplayJob(jobsApplied)
         }
     }, [jobs])
-    console.log(appliedJobs);
+
+    const deleteJob = (id) => {
+        const remaining = deleteJobApplications(id)
+        console.log(remaining);
+        const filterJob = displayJob.filter(job => job.id != id);
+        setDisplayJob(filterJob);
+
+
+    }
+
+   
 
     // const handleJobsFilter = filter => {
     //     if (filter === 'all') {
@@ -51,8 +69,9 @@ const AppliedJobs = () => {
         }
     }
 
+
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto min-h-[calc(100vh-292px)]">
             <details className="dropdown">
                 <summary className="m-1 btn">open or close</summary>
                 <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
@@ -62,10 +81,12 @@ const AppliedJobs = () => {
                 </ul>
             </details>
             {
-                displayJob.map(job => <Applied
+                displayJob.length === 0 ? <NoData></NoData> : displayJob.map(job => <Applied
                     key={job.id}
                     applied={job}
+                    deleteJob={deleteJob}
                 ></Applied>)
+                
             }
         </div>
     );
