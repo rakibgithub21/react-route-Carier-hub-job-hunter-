@@ -1,13 +1,18 @@
 
 import { useLoaderData, useParams } from "react-router-dom";
+import { saveJobApplication } from "../utilities";
 
 const JobDetails = () => {
     const jobs = useLoaderData();
-    console.log(jobs);
+    // console.log(jobs);
 
     const { id } = useParams();
     const job = jobs.find(job => job.id === parseInt(id));
     console.log(job);
+
+    const addToLocalStorage = () => {
+        saveJobApplication(id)
+    }
     return (
         <div className="grid grid-cols-5 container mx-auto gap-5 min-h-[calc(100vh-272px)] py-[130px]">
             <div className="col-span-3  space-y-6 ">
@@ -33,7 +38,7 @@ const JobDetails = () => {
                     <p>Address:{job.contact_information.address}</p>
                 </div>
                 <div className="bg-gradient-to-r from-[#7E90FE] to-[#9873FF] rounded-lg font-bold text-xl text-white">
-                    <button className="w-full py-4">Apply Now</button>
+                    <button onClick={addToLocalStorage} className="w-full py-4">Apply Now</button>
                 </div>
 
             </div>
