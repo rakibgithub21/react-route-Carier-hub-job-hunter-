@@ -6,11 +6,11 @@ const Feature = ({ feature }) => {
     return (
         <div className="border border-[#E8E8E8] p-10 rounded-xl my-5">
             <img className="w-[130px] h-[50px]" src={logo} alt="" />
-            <h3>{job_title}</h3>
-            <p>{company_name}</p>
+            <h3 className="text-2xl font-bold">{job_title}</h3>
+            <p className="text-xl font-semibold text-[#757575]">{company_name}</p>
             <div className="my-5 flex gap-5">
-                <span className="px-4 py-2 border rounded-lg border-[#7E90FE]">{remote_or_onsite}</span>
-                <span className="px-4 py-2 border border-[#7E90FE] rounded-lg" >{job_type}</span>
+                <span className="px-4 py-2 border rounded-lg border-[#7E90FE] font-medium">{remote_or_onsite}</span>
+                <span className="px-4 py-2 border border-[#7E90FE] rounded-lg font-medium" >{job_type}</span>
             </div>
             <div className="flex gap-10">
                 <h3>{location}</h3>
